@@ -17,7 +17,7 @@ electric_field(l, r) = 8.98e9 * l / r^2
 
 @printf("Carga total:  %f C\n", sum(trapezoidal(l[1:20], l[2:21], 0.1)))
 
-@printf("Campo eléctrico: %f N/m²\n",
+@printf("Campo eléctrico: %f V/m\n",
         sum(
             trapezoidal(
                 map(electric_field, l[1:20], x[1:20] .- 3.0),

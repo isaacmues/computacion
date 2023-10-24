@@ -10,6 +10,7 @@ program carga_y_campo_electrico
     do i = 1, 21
         x(i) = 0.0d0 + (i - 1) * dx
     end do
+    x = [(i - 1) * dx | i = 1:21]
 
     ! Define el arreglo para lambda
     l = [0.0000d0, 0.0999d0, 0.1998d0, 0.2995d0, 0.3988d0, 0.4976d0, 0.5960d0, 0.6936d0, 0.7905d0, &
@@ -32,7 +33,7 @@ program carga_y_campo_electrico
         campo_total = campo_total + &
             integral(campo_electrico(l(i), x(i) - 3.0d0), campo_electrico(l(i + 1), x(i + 1) - 3.0d0), dx)
     end do
-    print *, "Campo eléctrico: ", campo_total, " N/m^2"
+    print *, "Campo eléctrico: ", campo_total, " V/m"
 
 contains
 
