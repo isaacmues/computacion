@@ -17,6 +17,8 @@ El código requerido se puede encontrar en dos versiones:
 - [Código en Fortran](./examen-02.f90) para la implementación de la solución.
 - [Código en Julia](./examen-02.jl) para la comprobación.
 - [Código en Python](./examen-02-plot.py) para la gráfica.
+- [Resultados de Fortra](./resultados.dat) las columnas son x, solución numérica, solución analítica.
+- [Resultados de Julia](./resultados-julia.csv) esta columna es solo los resultados de la solución numérica.
 
 #### Resultados
 
