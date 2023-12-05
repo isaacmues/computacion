@@ -15,6 +15,7 @@ El código requerido se puede encontrar en dos versiones:
 
 - [Teoría](./examen-02-teoria.md)
 - [Código en Fortran](./examen-02.f90) para la implementación de la solución.
+- [Código en Julia](./examen-02.jl) para la comprobación.
 - [Código en Python](./examen-02-plot.py) para la gráfica.
 
 #### Resultados
