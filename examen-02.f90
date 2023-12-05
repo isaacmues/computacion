@@ -1,26 +1,37 @@
 PROGRAM gaussian_elimination
     IMPLICIT NONE
 
-    INTEGER,PARAMETER::n=4
+    INTEGER,PARAMETER::n=5
     REAL(8),PARAMETER::pi=3.14159265358979323846
-    REAL(8),PARAMETER::h=pi/20.0
+    REAL(8),PARAMETER::h=pi/(n+1)
     INTEGER::i
 
-    REAL(8),DIMENSION(n,n+1)::a
+    REAL(8),DIMENSION(n,n+1)::a=0.0
     REAL(8),DIMENSION(n)::y
+    REAL(8),DIMENSION(n)::x
     REAL(8),DIMENSION(n)::u
 
     OPEN(1,FILE='output.txt')
 
     ! Ejemplo de Numerical Methods... de Bose
-    a = reshape([1, 7, 13, 11, 2, 10, 6, 14, 3, 5, 2, 8, 4, 2, -3, -1, 10, 40, 34, 64], [n, n+1])
+    !a = reshape([1, 7, 13, 11, 2, 10, 6, 14, 3, 5, 2, 8, 4, 2, -3, -1, 10, 40, 34, 64], [n, n+1])
 
-    CALL gauss(n,a,u)
-
-    PRINT *,"RESULTADOS"
     DO i=1,n
-        PRINT *, "y", i, u(i)
+        x(i)=i*h
+        ! Solución analítica
+        u(i)=sin(x(i))
     END DO
+
+    CALL esquema(n,a)
+    CALL imprimeMatriz(n,a)
+
+
+    !CALL gauss(n,a,y)
+
+    !PRINT *,"RESULTADOS"
+    !DO i=1,n
+    !    PRINT *, "y", i, y(i)
+    !END DO
 
     ! Esto para escribir a un archivo
     !WRITE(1,9)"X=",(x(i),i=1,n)
@@ -84,7 +95,7 @@ SUBROUTINE imprimeMatriz(n,a)
     END DO
 END SUBROUTINE
 
-! Algoritmo de Gauss completo
+! Algoritmo de eliminación gaussiana completo
 SUBROUTINE gauss(n,a,y)
     INTEGER::n,j
     REAL(8),DIMENSION(n,n+1)::a
@@ -99,4 +110,22 @@ SUBROUTINE gauss(n,a,y)
     END DO
 
     CALL retrosus(n,a,y)
+END SUBROUTINE
+
+! Crea la matriz aumentada que representa el esquema de diferencias finitas
+SUBROUTINE esquema(n,a)
+    INTEGER::n,i
+    REAL(8),DIMENSION(n,n+1)::a
+
+    DO i=1,n
+        a(i,i)=2-h*h
+        IF (i .GT. 1) THEN
+            a(i,i-1) = 1.0
+            a(i-1,i) = 1.0
+        END IF
+    END DO
+
+    a(1,n+1) = -1
+    a(n,n+1) = 1
+
 END SUBROUTINE
