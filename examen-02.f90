@@ -1,35 +1,25 @@
 PROGRAM gaussian_elimination
     IMPLICIT NONE
 
-    INTEGER,PARAMETER::n=3
-    REAL(8), PARAMETER :: pi = 3.14159265358979323846
-    REAL(8), PARAMETER :: h = pi / 20.0
-    INTEGER::i,j
+    INTEGER,PARAMETER::n=4
+    REAL(8),PARAMETER::pi=3.14159265358979323846
+    REAL(8),PARAMETER::h=pi/20.0
+    INTEGER::i
 
     REAL(8),DIMENSION(n,n+1)::a
     REAL(8),DIMENSION(n)::y
+    REAL(8),DIMENSION(n)::u
 
     OPEN(1,FILE='output.txt')
 
     ! Ejemplo de Numerical Methods... de Bose
-    a = reshape([1, 3, 2, 1, 1, -3, 2, -3, -5, 4, -4, -5], [n, n+1])
+    a = reshape([1, 7, 13, 11, 2, 10, 6, 14, 3, 5, 2, 8, 4, 2, -3, -1, 10, 40, 34, 64], [n, n+1])
 
-    PRINT *,"Matriz aumentada"
-    CALL imprimeMatriz(n,a)
-
-    DO j=1,n
-        CALL pivota(n,a,j)
-        CALL elimina(n,a,j)
-    END DO
-
-    PRINT *,"Después de la eliminación"
-    CALL imprimeMatriz(n,a)
-
-    CALL retrosus(n,a,y)
+    CALL gauss(n,a,u)
 
     PRINT *,"RESULTADOS"
     DO i=1,n
-        PRINT *, "y", i, y(i)
+        PRINT *, "y", i, u(i)
     END DO
 
     ! Esto para escribir a un archivo
@@ -57,6 +47,7 @@ SUBROUTINE pivota(n,a,j)
     a(k,:)=t
 END SUBROUTINE
 
+! Elimina el primer coeficiente de la fila i al sumarla con la fila i - 1 escalada
 SUBROUTINE elimina(n,a,j)
     IMPLICIT NONE
     INTEGER::n,i,j
@@ -67,6 +58,7 @@ SUBROUTINE elimina(n,a,j)
     END DO
 END SUBROUTINE
 
+! Sustituye desde la última fila para encontrar la solución
 SUBROUTINE retrosus(n,a,y)
     IMPLICIT NONE
     INTEGER::n,i,j
@@ -90,4 +82,21 @@ SUBROUTINE imprimeMatriz(n,a)
     DO i=1,n
         PRINT *, (a(i,j),j=1,n+1)
     END DO
+END SUBROUTINE
+
+! Algoritmo de Gauss completo
+SUBROUTINE gauss(n,a,y)
+    INTEGER::n,j
+    REAL(8),DIMENSION(n,n+1)::a
+    REAL(8),DIMENSION(n)::y
+
+    PRINT *,"Matriz aumentada"
+    CALL imprimeMatriz(n,a)
+
+    DO j=1,n
+        CALL pivota(n,a,j)
+        CALL elimina(n,a,j)
+    END DO
+
+    CALL retrosus(n,a,y)
 END SUBROUTINE
