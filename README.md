@@ -71,7 +71,7 @@ En forma matricial podemos reescribir el sistema como
 1 & (h^2 - 2) & 1 & \dots & 0 \\
 0 & 1 & (h^2 - 2) & \dots & 0 \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
-0 & \dots & 0 & 1 & (h^2 - 2) \\
+0 & \dots & 0 & 1 & (h^2 - 2)
 \end{bmatrix}
 \begin{bmatrix}
 y_1 \\
@@ -86,7 +86,7 @@ y_{19} \\
 0 \\
 0 \\
 \vdots \\
-1 \\
+1
 \end{bmatrix}
 ```
 
