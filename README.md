@@ -78,7 +78,7 @@ y_1 \\
 y_2 \\
 y_3 \\
 \vdots \\
-y_{19} \\
+y_{19}
 \end{bmatrix}
 =
 \begin{bmatrix}
