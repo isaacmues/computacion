@@ -19,18 +19,14 @@ PROGRAM DiferenciasFinitas
     CALL esquema(n,a)
     CALL gauss(n,a,y)
 
+    OPEN(1,FILE='resultados.dat')
+
     PRINT *,"Resultados"
     PRINT *,"=========================================================="
     DO i=1,n
         PRINT *,i,y(i),u(i)
+        WRITE(1,*) x(i), y(i), u(i)
     END DO
-
-    OPEN(1,FILE='resultados.dat')
-    !WRITE(1,9)"X=",(x(i),i=1,n)
-
-    ! Formatos de escritura
-    !8 FORMAT(a,/,3(4(f7.2,3x),/))
-    !9 FORMAT(a,/,3(f7.2,/))
 
 END PROGRAM
 
