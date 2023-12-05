@@ -39,6 +39,8 @@ $`b`$.
 - Por otra parte, obtén la solucióna anlítica de la ecuación diferencial.
 - Grafica las soluciones numérica y analítica. ¿Cómo se comparan entre ellas?
 
+**Nota.** La condición de frontera no coincide, tomaré $`y(\pi) = -1`$.
+
 #### Diferencias Finitas
 
 Convirtiendo el problema a diferencias finitas tenemos que
@@ -46,38 +48,51 @@ Convirtiendo el problema a diferencias finitas tenemos que
 ```math
 \frac{y_{i+1} - 2 y_i + y_{i-1}}{h^2}+ y_i = 0
 \Rightarrow
-y_{i+1} - 2 y_i + y_{i-1} = -h^2 y_i
+y_{i+1} + (h^2 - 2) y_i + y_{i-1} = 0
 ```
 
-Que en forma general se puede escribir como
+En las fronteras tenemos que
+
+```math
+y_2 + (h^2 - 2) y_1 = -y_0 = -1
+```
+
+y
+
+```math
+(h^2 - 2) y_{19} + y_{18} = -y_{20} = 1.
+```
+
+En forma matricial podemos reescribir el sistema como
 
 ```math
 \begin{bmatrix}
-2 & -1 & 0 & \dots & 0 \\
--1 & 2 & -1 & \dots & 0 \\
-0 & -1 & 2 & \dots & 0 \\
+(h^2 - 2) & 1 & 0 & \dots & 0 \\
+1 & (h^2 - 2) & 1 & \dots & 0 \\
+0 & 1 & (h^2 - 2) & \dots & 0 \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
-0 & \dots & 0 & -1 & 2 \\
+0 & \dots & 0 & 1 & (h^2 - 2) \\
 \end{bmatrix}
 \begin{bmatrix}
-y_0 \\
-y_1 \\
-y_3 \\
-\vdots \\
-y_N \\
-\end{bmatrix}
-=
--h^2 \cdot
-\begin{bmatrix}
-y_0 \\
 y_1 \\
 y_2 \\
+y_3 \\
 \vdots \\
-y_N \\
+y_{19} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+-1 \\
+0 \\
+0 \\
+\vdots \\
+1 \\
 \end{bmatrix}
 ```
 
-#### Método de Gauss
+#### Método de eliminación gaussiana
+
+Para resolver el sistema planteado usaremos el método de eliminación gaussiana.
 
 #### Solución Analítica
 
