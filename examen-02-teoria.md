@@ -105,11 +105,29 @@ siendo así un pivotaje completo en lugar de parcial pero es más difícil de pr
 La solución general de la ecuación es
 
 ```math
-y(x) = c_1 cos(x) + c_2\sin(x) 
+y(x) = c_1\cos(x) + c_2\sin(x) 
 ```
 
 Cuando aplicamos las condiciones de frontera obtenemos
 
 ```math
-y(0) &= c_1 = 1
+y(0) = c_1 = 1
+```
+
+y la otra condición de frontera parece decir
+
+```math
+y(\pi) = -c_1 = -0.3,
+```
+
+lo cual haría que las condiciones de frontera no concordaran. Por esto supondré
+
+```math
+y(\pi) = -c_1 = -1;
+```
+
+por lo que la solución analítica sería simplemente
+
+```math
+y(x) = \cos(x)
 ```
