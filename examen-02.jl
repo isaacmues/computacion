@@ -1,4 +1,4 @@
-using LinearAlgebra
+using LinearAlgebra, DataFrames, CSV
 
 h = pi / 20
 
@@ -17,7 +17,10 @@ Y = A \ B
 X = h:h:pi-h
 U = cos.(X)
 
-println("Numérica","\t  ", "Analítica")
+println("Numérica","\t\t", "Analítica")
 for i in 1:1:19
     println(Y[i],"\t", U[i])
 end
+
+df = DataFrame(num_sol=Y)
+CSV.write("resultados-julia.csv", df)
