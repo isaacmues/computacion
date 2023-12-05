@@ -1,39 +1,31 @@
-PROGRAM gaussian_elimination
+! 
+PROGRAM DiferenciasFinitas
     IMPLICIT NONE
 
-    INTEGER,PARAMETER::n=5
+    INTEGER,PARAMETER::n=19
     REAL(8),PARAMETER::pi=3.14159265358979323846
     REAL(8),PARAMETER::h=pi/(n+1)
     INTEGER::i
 
     REAL(8),DIMENSION(n,n+1)::a=0.0
-    REAL(8),DIMENSION(n)::y
-    REAL(8),DIMENSION(n)::x
-    REAL(8),DIMENSION(n)::u
+    REAL(8),DIMENSION(n)::x,y,u
 
-    OPEN(1,FILE='output.txt')
-
-    ! Ejemplo de Numerical Methods... de Bose
-    !a = reshape([1, 7, 13, 11, 2, 10, 6, 14, 3, 5, 2, 8, 4, 2, -3, -1, 10, 40, 34, 64], [n, n+1])
-
+    ! Solución analítica
     DO i=1,n
         x(i)=i*h
-        ! Solución analítica
-        u(i)=sin(x(i))
+        u(i)=cos(x(i))
     END DO
 
     CALL esquema(n,a)
-    CALL imprimeMatriz(n,a)
+    CALL gauss(n,a,y)
 
+    PRINT *,"Resultados"
+    PRINT *,"=========================================================="
+    DO i=1,n
+        PRINT *,i,y(i),u(i)
+    END DO
 
-    !CALL gauss(n,a,y)
-
-    !PRINT *,"RESULTADOS"
-    !DO i=1,n
-    !    PRINT *, "y", i, y(i)
-    !END DO
-
-    ! Esto para escribir a un archivo
+    OPEN(1,FILE='resultados.dat')
     !WRITE(1,9)"X=",(x(i),i=1,n)
 
     ! Formatos de escritura
@@ -58,7 +50,7 @@ SUBROUTINE pivota(n,a,j)
     a(k,:)=t
 END SUBROUTINE
 
-! Elimina el primer coeficiente de la fila i al sumarla con la fila i - 1 escalada
+! Elimina el primer coeficiente de la fila i al sumarla con la fila  i-1 escalada
 SUBROUTINE elimina(n,a,j)
     IMPLICIT NONE
     INTEGER::n,i,j
@@ -86,6 +78,7 @@ SUBROUTINE retrosus(n,a,y)
     END DO
 END SUBROUTINE
 
+! Simplemente para comprobar que estén bien escritas las matrices
 SUBROUTINE imprimeMatriz(n,a)
     INTEGER::n,i,j
     REAL(8),DIMENSION(n,n+1)::a
@@ -101,9 +94,6 @@ SUBROUTINE gauss(n,a,y)
     REAL(8),DIMENSION(n,n+1)::a
     REAL(8),DIMENSION(n)::y
 
-    PRINT *,"Matriz aumentada"
-    CALL imprimeMatriz(n,a)
-
     DO j=1,n
         CALL pivota(n,a,j)
         CALL elimina(n,a,j)
@@ -118,7 +108,7 @@ SUBROUTINE esquema(n,a)
     REAL(8),DIMENSION(n,n+1)::a
 
     DO i=1,n
-        a(i,i)=2-h*h
+        a(i,i)=h*h-2
         IF (i .GT. 1) THEN
             a(i,i-1) = 1.0
             a(i-1,i) = 1.0
